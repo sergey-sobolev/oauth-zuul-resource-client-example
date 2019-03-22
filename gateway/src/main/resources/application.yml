@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+spring:
+  aop:
+    proxy-target-class: true
+  application:
+    name: gateway
+
+zuul:
+  add-proxy-headers: true
+  sensitiveHeaders: Cookie,Set-Cookie
+  routes:
+    resource-server:
+      path: /resource-server/**
+#      url: http://localhost:8081/resource-server
+      serviceId: resource-server
+    oauth:
+      path: /oauth/**
+#      url: http://localhost:8083/spring-security-oauth-server/oauth
+      serviceId: auth
+      stripPrefix: false
+  debug:
+    request: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+      #defaultZone: http://172.31.13.177:8000/eureka/,http://172.31.25.202:8000/eureka/,http://127.0.0.1:8000/eureka/
+  #        defaultZone: http://172.31.13.177:8000/eureka/
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 15
+
+ribbon:
+  eureka:
+    enabled: true
+
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: 123
+
+endpoints:
+  routes:
+    enabled: true
+
+#debug: true

@@ -1,0 +1,17 @@
+server:
+  port: 8761 
+
+eureka:
+  client:
+    registerWithEureka: false # telling the server not to register himself in the service
+    fetchRegistry: false
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+    enableSelfPreservation: false
+  instance:
+    preferIpAddress: true
+    instance-id: localhost
+
+spring:
+  application:
+    name: eureka-server
